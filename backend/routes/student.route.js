@@ -2,10 +2,10 @@
 
 const express = require('express');
 const router = express.Router();
+const cors=require('cors');
 const Student = require('../models/Student'); // Student Model
 
-// CREATE Student
-router.post('/students', async (req, res, next) => {
+router.post('/students',cors(), async (req, res, next) => {
     try {
         const data = await Student.create(req.body);
         console.log(data);
@@ -16,7 +16,7 @@ router.post('/students', async (req, res, next) => {
 });
 
 // READ Students
-router.get('/', async (req, res, next) => {
+router.get('/',cors(), async (req, res, next) => {
     try {
         const data = await Student.find();
         res.json(data);
@@ -28,7 +28,7 @@ router.get('/', async (req, res, next) => {
 // UPDATE Student
 router.route('/students/:id')
     // Get Single Student
-    .get(async (req, res, next) => {
+    .get(cors(),async (req, res, next) => {
         try {
             const data = await Student.findById(req.params.id);
             res.json(data);
@@ -37,7 +37,7 @@ router.route('/students/:id')
         }
     })
     // Update Student Data
-    .put(async (req, res, next) => {
+    .put(cors(), async (req, res, next) => {
         try {
             const data = await Student.findByIdAndUpdate(req.params.id, {
                 $set: req.body,
@@ -49,10 +49,11 @@ router.route('/students/:id')
         }
     });
 
+
 // DELETE Student
-router.delete('/students/:id', async (req, res, next) => {
+router.delete('/students/:id',cors(), async (req, res, next) => {
     try {
-        const data = await Student.findByIdAndRemove(req.params.id);
+        const data = await Student.findByIdAndDelete(req.params.id);
         res.status(200).json({
             msg: data,
         });
