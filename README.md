@@ -101,7 +101,6 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
   # Instalar as dependências
      npm i 
      mkdir tls
-     mkdir .env
      sudo nano .env 
     // conexão com dns
      MONGODB_URI = mongodb://root:123@db.myclass.com:27017/?directConnection=true&serverSelectionTimeoutMS>
