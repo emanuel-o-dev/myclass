@@ -177,6 +177,7 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
        $ sudo chmod 444 /var/www/html/ca.crt <br>
   
 
+ https://github.com/vaamonde/ca-certificates/blob/main/03-services/03-nodejs-https.md
 
 
 
