@@ -108,6 +108,9 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
 
 ## Maquina DNS 
      sudo apt-get install bind9
+     sudo nano /etc/bind/named.conf.options
+<br>
+    
      dnssec-validation no;
      allow-query { 127.0.0.0/8; 10.118.254.0/24; }; // ip da bridge da maquina hospodeira
      listen-on-v6 { };
