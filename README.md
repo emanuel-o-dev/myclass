@@ -126,8 +126,8 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
       };
   # Criar arquivo de configuração
      sudo nano /var/cache/bind/db.myclass.com
-      ORIGIN myclass.com.
-      TTL 300;
+      $ORIGIN myclass.com.
+      $TTL 300;
       @ IN SOA dns emanueloliveiraandrade.alunos.utpr.edu.br (1 30 30 30 30);
       @ IN NS dns
       dns IN A 10.118.254.54
