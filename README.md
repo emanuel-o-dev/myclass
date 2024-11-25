@@ -54,7 +54,7 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
   $ sudo systemctl restart nginx<br>
 
 # Maquina DB 
-   # https://www.hostinger.com.br/tutoriais/instalar-mongodb-ubuntu <br>
+   https://www.hostinger.com.br/tutoriais/instalar-mongodb-ubuntu <br>
    $ curl -fsSL https://pgp.mongodb.com/server-7.0.asc |  sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor<br>
    $ echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list<br>
    $ sudo apt-get update<br>
