@@ -173,7 +173,7 @@ remover "#" e mudar para:
      "Common Name: ..... " : camada.net
 
   # Instalar um navegador para disponibilizar o certificado pela web
-      sudo apt-get install lightpd
+      sudo apt-get install lighttpd
       sudo cp pki/ca.crt /var/www/html/
        # Alterar permissões do arquivo
        // alterar o dono do arquivo para ubuntu (usuario padrão)
