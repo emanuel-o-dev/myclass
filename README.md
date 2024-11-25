@@ -10,19 +10,19 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
 # Entrar no servidor
  $multipass shell <name_exemplo>
 
-## Maquina Web
-# Instalar e confifgurar ngnix
-  #https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04
-  $ sudo apt update
-  $ sudo apt install nginx
-  $ ufw allow OpenSSH
-  $ ufw enable
-  $ sudo ufw app list
-  $ sudo ufw allow 'Nginx HTTP'
-  $ sudo ufw allow 'Nginx HTTPS'
-  $ sudo ufw status
-  $ sudo systemctl reload nginx
-  $ systemctl status nginx
+# Maquina Web
+## Instalar e configurar ngnix
+  https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-22-04<br>
+  $ sudo apt update<br>
+  $ sudo apt install nginx<br>
+  $ ufw allow OpenSSH<br>
+  $ ufw enable<br>
+  $ sudo ufw app list<br>
+  $ sudo ufw allow 'Nginx HTTP'<br>
+  $ sudo ufw allow 'Nginx HTTPS'<br>
+  $ sudo ufw status<br>
+  $ sudo systemctl reload nginx<br>
+  $ systemctl status nginx<br>
 
   # Criação do arquivo da pagina
    $ sudo mkdir -p /var/www/myclass.com/html
