@@ -85,7 +85,7 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
     )
 
   # Testar a conexao de entrada
-      mongosh --port 27017 -u root -p '123' 'admin'
+      mongosh --port 27017 -u root -p '123' 'classroom'
   # Habilitar conexão remota 
      sudo nano /etc/mongod.conf
       bindIp: 127.0.0.1, 10.118.254.138 // ip da maquina dev
