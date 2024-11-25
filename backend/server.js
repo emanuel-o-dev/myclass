@@ -3,7 +3,6 @@
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
-
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -35,7 +34,7 @@ app.use(cors());
 app.use('/students', studentRoute);
 
 // Define the PORT
-const port = 3333;
+const port = 3000;
 
 // Start the server
 app.listen(port, () => {
@@ -55,15 +54,23 @@ app.use((err, req, res, next) => {
 });
 
 
-
-const options = {
+var options = {
     key: fs.readFileSync('tls/nodejs.key'),
     cert: fs.readFileSync('tls/nodejs.crt'),
     // Opcional: adicionar se precisar validar a cadeia de certificação com a CA
-    //ca: fs.readFileSync('/etc/ssl/certs/pti-ca.pem')
+    ca: fs.readFileSync('/etc/ssl/certs/ca.pem')
 };
+
+// Mensagem que será mostrada no browser (navegador) 
+app.get('/', function (req, res) {
+    // Obtém a data e hora atual
+    var dataHoraAtual = new Date().toLocaleString();
+    // Mensagem que será enviada com a data e hora atual
+    var mensagem = 'Meu novo projeto em Node.JS - Robson Vaamonde<br>Data e hora atual: ' + dataHoraAtual;
+    res.send(mensagem);
+});
 
 // Porta padrão utilizada pela aplicação do Node.JS com HTTPS
 https.createServer(options, app).listen(PORT, function() {
-    console.log('Aplicativo de exemplo ouvindo na porta '+ PORT + ' com HTTPS');
+    console.log('Aplicativo de exemplo ouvindo na porta '+  PORT +' com HTTPS');
 });
