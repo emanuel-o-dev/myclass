@@ -77,8 +77,8 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
          user: "root",
          pwd: "123",   
          roles: [
-             { role: 'userAdminAnyDatabase', db: 'classroom' },
-            { role: 'readWriteAnyDatabase', db: 'classroom' }
+             { role: 'userAdminAnyDatabase', db: 'admin' },
+            { role: 'readWriteAnyDatabase', db: 'admin' }
           ],
        }
     )
