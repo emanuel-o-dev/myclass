@@ -18,8 +18,8 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
   
      sudo apt update
      sudo apt install nginx
-     ufw allow OpenSSH
-     ufw enable
+     sudo ufw allow OpenSSH
+     sudo ufw enable
      sudo ufw app list
      sudo ufw allow 'Nginx HTTP'
      sudo ufw allow 'Nginx HTTPS'
@@ -35,7 +35,6 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
          server {
             listen      80;
             listen              443 ssl;
-            server_name myclass.com www.myclass.com
             ssl_certificate    tls/myclass.crt;
             ssl_certificate_key tls/myclass.key;
             ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
