@@ -111,7 +111,7 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
      mkdir tls
      sudo nano .env 
     // conexão com dns
-     MONGODB_URI = mongodb://root:123@db.myclass.com:27017/?directConnection=true&serverSelectionTimeoutMS>
+     MONGODB_URI = mongodb://root:123@db.myclass.com:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.3
      PORT = 4000
 
 ## Maquina DNS 
