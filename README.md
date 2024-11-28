@@ -30,22 +30,32 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
   # Criação do arquivo da pagina
       sudo mkdir -p /var/www/myclass.com/html
    # Configuração da rota 
-      sudo nano /etc/nginx/sites-available/myclass.com
-   
+      sudo nano /etc/nginx/sites-available/myclass.com                                   
          server {
             listen      80;
-            listen              443 ssl;
+            listen      443 ssl;
+    
             ssl_certificate    tls/myclass.crt;
             ssl_certificate_key tls/myclass.key;
             ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
-            ssl_ciphers         HIGH:!aNULL:!MD5;        
+            ssl_ciphers         HIGH:!aNULL:!MD5;
+    
             root /var/www/myclass.com/html;
-            server_name myclass.com www.myclass.com;      
-                index index.html;
-                location / {
-                        try_files uri uri/ /index.html =404;
-                }
+            index index.html index.htm index.nginx-debian.html;
+    
+            server_name myclass.com www.myclass.com;
+    
+            location / {
+                  try_files $uri  /index.html =404;
+            }
+            location /\.css {
+                  default_type text/css;
+            }
+            location /\.js {
+                    default_type text/js;
+            }
         }
+
    # Linkar o arquivo de configuração para habilitado   
      sudo ln -s /etc/nginx/sites-available/myclass.com /etc/nginx/sites-enabled/
 
@@ -87,8 +97,7 @@ Todos os direitos a # https://www.geeksforgeeks.org/how-to-build-a-basic-crud-ap
       mongosh --port 27017 -u root -p '123' 'classroom'
   # Habilitar conexão remota 
      sudo nano /etc/mongod.conf
-      bindIp: 127.0.0.1, 10.118.254.138 // ip da maquina dev
-      security:   authorization: enabled // alterar para enable
+      bindIp: 0.0.0.0  // ip de qualquer maquina
      sudo systemctl restart mongod
 
   // mongo "mongodb://usuário:senha@ip:porta/?authSource=nome_do_banco_de_dados"  link para conexão remota
