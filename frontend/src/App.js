@@ -1,84 +1,82 @@
-//App.js
+// App.js
 
-// Import React
 import React from "react";
-// Import Logo
 import logo from "./logo.svg";
-// Import Bootstrap
-import { Nav, Navbar, Container, Row, Col }
-    from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Container,
+  Row,
+  Col,
+  Card
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-
-// Import Custom CSS
 import "./App.css";
 
-// Import from react-router-dom
 import {
-    BrowserRouter as Router, Routes,
-    Route, Link
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
 } from "react-router-dom";
 
-// Import other React Component
 import CreateStudent from "./Components/create-student.component.js";
-import EditStudent from
-    "./Components/edit-student.component.js";
-import StudentList from
-    "./Components/student-list.component.js";
+import EditStudent from "./Components/edit-student.component.js";
+import StudentList from "./Components/student-list.component.js";
 
-// App Component
 const App = () => {
-    return (
-        <Router>
-            <div className="App">
-                <header className="App-header">
-                    <Navbar bg="dark" variant="dark">
-                        <Container>
-                            <Navbar.Brand>
-                                <Link to={"/create-student"} className="nav-link"> <img src={logo} alt="Logo" 
-                                    width={150} height={100} style={{ backgroundColor: "white" }} /> My Class
-                                </Link>
-                            </Navbar.Brand>
+  return (
+    <Router>
+      <div className="App">
+        {/* Navbar */}
+        <header className="App-header">
+          <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+            <Container>
+              <Navbar.Brand as={Link} to="/create-student" className="d-flex align-items-center">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  width={50}
+                  height={50}
+                  className="me-2 rounded bg-white p-1"
+                />
+                <span className="fw-bold fs-4">My Class</span>
+              </Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                <Nav>
+                  <Nav.Link as={Link} to="/create-student">
+                    Create Student
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/student-list">
+                    Student List
+                  </Nav.Link>
+                </Nav>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
+        </header>
 
-                            <Nav className="justify-content-end">
-                                <Nav>
-                                    <Link to={"/create-student"}
-                                        className="nav-link">
-                                        Create Student
-                                    </Link>
-                                </Nav>
-
-                                <Nav>
-                                    <Link to={"/student-list"}
-                                        className="nav-link">
-                                        Student List
-                                    </Link>
-                                </Nav>
-                            </Nav>
-                        </Container>
-                    </Navbar>
-                </header>
-
-                <Container>
-                    <Row>
-                        <Col md={12}>
-                            <div className="wrapper">
-                                <Routes>
-                                    <Route exact path="/"
-                                        Component={CreateStudent} />
-                                    <Route path="/create-student"
-                                        Component={CreateStudent} />
-                                    <Route path="/edit-student/:id"
-                                        Component={EditStudent} />
-                                    <Route path="/student-list"
-                                        Component={StudentList} />
-                                </Routes>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-        </Router>
-    );
+        {/* Conteúdo */}
+        <Container>
+          <Row className="justify-content-center">
+            <Col md={10} lg={8}>
+              <Card className="shadow-lg my-4">
+                <Card.Body>
+                  <Routes>
+                    <Route path="/" element={<CreateStudent />} />
+                    <Route path="/create-student" element={<CreateStudent />} />
+                    <Route path="/edit-student/:id" element={<EditStudent />} />
+                    <Route path="/student-list" element={<StudentList />} />
+                  </Routes>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </Router>
+  );
 };
 
 export default App;
