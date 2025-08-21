@@ -1,3 +1,5 @@
 .env
 /tls
+/node_modules
+/logs
 

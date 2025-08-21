@@ -1,76 +1,76 @@
-// server.js
-
-const express = require('express');
-const https = require('https');
-const fs = require('fs');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-require('dotenv').config(); // For loading environment variables
-
-// Import Express Routes
-const studentRoute = require('../backend/routes/student.route');
-
-// Load environment variables from .env file
-const { MONGODB_URI, PORT } = process.env;
-
-// Connecting to MongoDB Database
-mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => {
-        console.log('Database successfully connected!');
-    })
-    .catch((error) => {
-        console.log('Could not connect to database: ' + error);
-    });
-
-// Initialize Express app
+const express = require("express");
+const fs = require("fs");
+const https = require("https");
+const { Pool, Client } = require("pg");
+require("dotenv").config();
 const app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT,
+  connectionTimeoutMillis: 5000, // Timeout for establishing a connection
+});
+
+const cors = require("cors");
 app.use(cors());
-app.use('/students', studentRoute);
-
-// Define the PORT
-const port = 3000;
-
-// Start the server
-app.listen(port, () => {
-    console.log('Connected to port ' + port);
+app.get("/alunos", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM alunos ORDER BY id");
+    res.json(result.rows);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
 });
-
-// Handle 404 errors
-app.use((req, res, next) => {
-    res.status(404).send('Error 404: Not Found!');
+app.post("/alunos", async (req, res) => {
+  const { name, email, phone, grade } = req.body;
+  try {
+    const result = await pool.query(
+      "INSERT INTO alunos (name, email, phone, grade) VALUES ($1, $2, $3, $4) RETURNING *",
+      [name, email, phone, grade]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
-
-// Global error handler
-app.use((err, req, res, next) => {
-    console.error(err.message);
-    const status = err.statusCode || 500;
-    res.status(status).send(err.message);
+app.put("/alunos/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, email, phone, grade } = req.body;
+  try {
+    const result = await pool.query(
+      "UPDATE alunos SET name=$1, email=$2, phone=$3, grade=$4 WHERE id=$5 RETURNING *",
+      [name, email, phone, grade, id]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
-
-
-var options = {
-    key: fs.readFileSync('tls/nodejs.key'),
-    cert: fs.readFileSync('tls/nodejs.crt'),
-    // Opcional: adicionar se precisar validar a cadeia de certificação com a CA
-    ca: fs.readFileSync('/etc/ssl/certs/ca.pem')
-};
-
-// Mensagem que será mostrada no browser (navegador) 
-app.get('/', function (req, res) {
-    // Obtém a data e hora atual
-    var dataHoraAtual = new Date().toLocaleString();
-    // Mensagem que será enviada com a data e hora atual
-    var mensagem = 'Meu novo projeto em Node.JS - Robson Vaamonde<br>Data e hora atual: ' + dataHoraAtual;
-    res.send(mensagem);
+app.delete("/alunos/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query("DELETE FROM alunos WHERE id=$1", [id]);
+    res.json({ message: "Aluno removido com sucesso" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
-
-// Porta padrão utilizada pela aplicação do Node.JS com HTTPS
-https.createServer(options, app).listen(PORT, function() {
-    console.log('Aplicativo de exemplo ouvindo na porta '+  PORT +' com HTTPS');
-});
+const certPath = "/opt/ssl/certificado.crt";
+const keyPath = "/opt/ssl/certificado.key";
+if (fs.existsSync(certPath) && fs.existsSync(keyPath)) {
+  const options = {
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath),
+  };
+  https.createServer(options, app).listen(3000, () => {
+    console.log("Servidor HTTPS rodando na porta 3000");
+  });
+} else {
+  app.listen(3000, () => {
+    console.log("Servidor rodando na porta 3000 sem HTTPS.");
+  });
+}
