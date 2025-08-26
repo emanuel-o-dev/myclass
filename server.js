@@ -59,8 +59,8 @@ app.delete("/alunos/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-const certPath = "./tls/nodejs.crt";
-const keyPath = "./tls/nodejs.key";
+const certPath = "/opt/nodejs.crt";
+const keyPath = "/opt/nodejs.key";
 if (fs.existsSync(certPath) && fs.existsSync(keyPath)) {
   const options = {
     key: fs.readFileSync(keyPath),
