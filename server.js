@@ -29,7 +29,7 @@ app.post("/alunos", async (req, res) => {
   const { name, email, phone, grade } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO alunos (name, email, phone, grade) VALUES ($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO students (name, email, phone, grade) VALUES ($1, $2, $3, $4) RETURNING *",
       [name, email, phone, grade]
     );
     res.json(result.rows[0]);
@@ -42,7 +42,7 @@ app.put("/alunos/:id", async (req, res) => {
   const { name, email, phone, grade } = req.body;
   try {
     const result = await pool.query(
-      "UPDATE alunos SET name=$1, email=$2, phone=$3, grade=$4 WHERE id=$5 RETURNING *",
+      "UPDATE students SET name=$1, email=$2, phone=$3, grade=$4 WHERE id=$5 RETURNING *",
       [name, email, phone, grade, id]
     );
     res.json(result.rows[0]);
